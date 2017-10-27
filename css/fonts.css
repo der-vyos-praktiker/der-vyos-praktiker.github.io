@@ -1,0 +1,59 @@
+
+
+
+@charset 'UTF-8';
+
+@font-face
+{
+	font-family: 'FontAwesome';
+	src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?v=3.0.1');
+	src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),
+	     url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=3.0.1') format('woff'),
+	     url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=3.0.1') format('truetype'),
+	     url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg#FontAwesome') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face
+{
+	font-family: 'Font-Awesome-Social';
+	src: url('https://github.com/rymohr/more-font-awesome-rails/raw/master/vendor/assets/fonts/fontawesome-social-webfont.eot');
+	src: url('https://github.com/rymohr/more-font-awesome-rails/raw/master/vendor/assets/fonts/fontawesome-social-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('https://github.com/rymohr/more-font-awesome-rails/raw/master/vendor/assets/fonts/fontawesome-social-webfont.woff') format('woff'),
+		 url('https://github.com/rymohr/more-font-awesome-rails/raw/master/vendor/assets/fonts/fontawesome-social-webfont.ttf') format('truetype'),
+		 url('https://github.com/rymohr/more-font-awesome-rails/raw/master/vendor/assets/fonts/fontawesome-social-webfont.svg#Font-Awesome-More') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+/*********************************************************************************/
+/* Icons                                                                         */
+/* Powered by Font Awesome by Dave Gandy | http://fontawesome.io                 */
+/* Licensed under the SIL OFL 1.1 (font), MIT (CSS)                              */
+/*********************************************************************************/
+
+.fa {
+	text-decoration: none;
+}
+
+.fa:before {
+	display:inline-block;
+	font-family: FontAwesome;
+	font-size: 1.25em;
+	text-decoration: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+.fa-book:before{content:"\f02d"}
+.fa-globe:before{content:"\f0ac"}
+.fa-router:before{content:"\2295"}
+.fa-map-o:before{content:"\f278"}
+
+/********************************************************/
+/* All other icons are removed to save approx 18 KB     */
+/* see css/fonts.css revision 1.5 for the complete list */
+/********************************************************/
