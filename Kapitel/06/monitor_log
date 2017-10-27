@@ -1,0 +1,3 @@
+#!/bin/bash
+# Dieses Skript liefert Syslogmeldungen an den event-handler
+/usr/bin/tail --lines=0 ---disable-inotify --follow=name /var/log/messages

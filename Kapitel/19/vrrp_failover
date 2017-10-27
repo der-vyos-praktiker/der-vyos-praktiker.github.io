@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+use lib '/opt/vyatta/share/perl5';
+use Vyatta::Config;
+$config = new Vyatta::Config;
+
+# default-Zustand. Bei unbekanntem Zustand wird 'active' angenommen
+my $status = 'active';		
+
+# Ausgabe zur Fehlersuche gewünscht?
+my $debug = 1;
+
+
+# welche Interfaces sind für die Lastverteilung eingerichtet?
+@wan_interfaces = $config->listEffectiveNodes(
+	"load-balancing wan interface-health");
+
+# Alle Interfaces einzeln untersuchen
+for my $interface ( @wan_interfaces ) {
+	$debug && print "wan interface $interface\n";
+
+	# wie ist der Status vom Interface? Frag: "show wan-load-balance"
+	if ( open( my $fh, '<', '/var/run/load-balance/wlb.out' ) ) {
+		LINE:
+		while ( my $line = <$fh> ) {
+			if ( $line =~ /^Interface:\s+$interface/ ) {
+				# jump to next line
+				$line = <$fh>;
+
+				if ( $line =~ /\s*Status:\s+(\w+)/ ) {
+					if ( $1 ne 'active' ) {
+						$status = $1;
+						last LINE;
+					}
+				} else {
+					$debug && print "wan status ".
+						"$interface nicht gefunden\n";
+					exit( 2 );
+				}
+			}
+		}
+		close $fh;
+	} else {
+		print "Datei /var/run/load-balance/wlb.out nicht lesbar\n";
+		exit( 1 );
+	}
+}
+
+# Abhängig vom WAN-Status wird die VRRP-Priorität erhöht oder verringert
+for my $interface ( $config->listEffectiveNodes("interfaces ethernet") ) {
+	$debug && print "interface $interface\n";
+
+	# welche VRRP Gruppennummer hat dieses Interface
+	# (mehrere Gruppen sind möglich)
+	@vrrp_groups = $config->listEffectiveNodes(
+		"interfaces ethernet $interface vrrp vrrp-group");
+
+	for my $vrrp_group ( @vrrp_groups )  {
+		# Die Perl API kann die Konfiguration zwar auslesen, aber
+		# nicht verändern. Da hilft nur die vbash.
+
+		my $inner_cmd = sprintf
+			"set interfaces ethernet $interface".
+			" vrrp vrrp-group $vrrp_group priority %d",
+				$status eq 'active' ? 130 : 70;
+
+		# Das Kommando wird jetzt in configure+commit gewickelt...
+		my $cmd = "source /opt/vyatta/etc/functions/script-template\n".
+			"configure\n".
+			"$inner_cmd\n".
+			"commit";
+		$cmd =	"echo \"$cmd\" | /bin/vbash";
+		$debug && print "$cmd\n";
+
+		# ... und ausgeführt
+		system( $cmd );
+
+		# Fehlerbehandlung. Wenn das Kommando fehlschlägt, kann
+		# hier nicht mehr als eine Meldung geloggt werden
+		if ( $? ) {
+			system( "/usr/bin/logger -t vrrp_failover ".
+				"Fehler beim Ausfuehren von '$inner_cmd'" );
+		}
+	}
+}
+exit( 0 );

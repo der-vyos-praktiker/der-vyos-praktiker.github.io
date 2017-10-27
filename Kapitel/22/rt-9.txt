@@ -1,0 +1,171 @@
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname RT-9
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+aaa new-model
+!
+!
+aaa authentication login mgmt-access local
+aaa authorization exec mgmt-access local none
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+fhrp version vrrp v3
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name lab
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+cts logging verbose
+!
+!
+license udi pid CISCO2901/K9 sn FCZ2006C0FD
+!
+!
+username vyos privilege 15 secret 5 $1$HBR9$e5vSnLBL00L3dWrknQ9eo1
+username ubnt privilege 15 secret 5 $1$Vj2k$7v6Ma9yOEHbLuJNeLhtZx.
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description OspfRouterId
+ ip address 203.0.113.9 255.255.255.255
+!
+interface Loopback91
+ description OspfArea9
+ ip address 10.9.1.1 255.255.255.0
+ ipv6 address FD00:9:1::1/64
+ ipv6 ospf 1 area 9
+!
+interface Loopback92
+ description OspfArea9
+ ip address 10.9.2.1 255.255.255.0
+ ipv6 address FD00:9:2::1/64
+ ipv6 ospf 1 area 9
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.1.1.9 255.255.255.0
+ ip ospf message-digest-key 1 md5 SECRET
+ ip ospf network broadcast
+ duplex auto
+ speed auto
+ ipv6 address FD00:1::9/64
+ ipv6 ospf 1 area 1
+ vrrp 1 address-family ipv4
+  vrrpv2
+  address 10.1.1.250 primary
+  exit-vrrp
+ vrrp 6 address-family ipv6
+  address FE80:1::250 primary
+  address FD00:1::250/64
+  exit-vrrp
+!
+interface GigabitEthernet0/1
+ ip address 198.51.100.9 255.255.255.0
+ ip ospf message-digest-key 1 md5 SECRET
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:1::9/64
+ ipv6 ospf 1 area 0
+ ipv6 ospf priority 10
+!
+router ospf 1
+ router-id 203.0.113.9
+ area 0 authentication message-digest
+ area 1 authentication message-digest
+ area 9 range 10.9.0.0 255.255.0.0
+ network 10.1.1.0 0.0.0.255 area 1
+ network 10.9.0.0 0.0.255.255 area 9
+ network 198.51.100.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 198.51.100.6
+!
+ipv6 router ospf 1
+ router-id 203.0.113.9
+ area 9 range FD00:9::/32
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ exec-timeout 60 0
+ password geheim
+ authorization exec mgmt-access
+ login authentication mgmt-access
+ transport input telnet ssh
+line vty 5 15
+ exec-timeout 60 0
+ password geheim
+ authorization exec mgmt-access
+ login authentication mgmt-access
+ transport input telnet ssh
+!
+scheduler allocate 20000 1000
+!
+end

@@ -1,0 +1,20 @@
+#!/bin/bash
+API_KEY="327991982:AAEqYX0Bbt62Qd4nomAkPvo0CESQJwbL5Fc"
+CHAT_ID=271717486
+HOSTNAME=`/bin/hostname`
+MESSAGE="$@"
+
+# wenn das Skript /usr/bin/eventwatchd für die erweiterte
+# Auswertung angepasst ist, kann diese Info hier genutzt werden
+if [ ! -z "$VYATTA_EVENT_LINE" ] ; then
+  MESSAGE="$MESSAGE%0A$VYATTA_EVENT_LINE"
+fi
+
+# Skript wird fuer Alarmierung der Lastverteilung benutzt
+if [ ! -z "$WLB_INTERFACE_STATE" ] ; then
+  MESSAGE="$MESSAGE%0AInterface $WLB_INTERFACE_NAME $WLB_INTERFACE_STATE"
+fi
+
+/usr/bin/curl --insecure \
+  --data "chat_id=$CHAT_ID&text=$HOSTNAME:+$MESSAGE" \
+  https://api.telegram.org/bot$API_KEY/sendMessage

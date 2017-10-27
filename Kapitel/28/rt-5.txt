@@ -1,0 +1,193 @@
+set firewall all-ping enable
+set firewall broadcast-ping disable
+set firewall ipv6-name INTERNET-IN-6 default-action drop
+set firewall ipv6-name INTERNET-IN-6 enable-default-log
+set firewall ipv6-name INTERNET-IN-6 rule 1 action accept
+set firewall ipv6-name INTERNET-IN-6 rule 1 state established enable
+set firewall ipv6-name INTERNET-IN-6 rule 1 state related enable
+set firewall ipv6-name INTERNET-IN-6 rule 2 action drop
+set firewall ipv6-name INTERNET-IN-6 rule 2 state invalid enable
+set firewall ipv6-name INTERNET-IN-6 rule 5 action accept
+set firewall ipv6-name INTERNET-IN-6 rule 5 description 'Allow ICMPv6'
+set firewall ipv6-name INTERNET-IN-6 rule 5 log disable
+set firewall ipv6-name INTERNET-IN-6 rule 5 protocol icmpv6
+set firewall ipv6-name INTERNET-LOCAL-6 default-action drop
+set firewall ipv6-name INTERNET-LOCAL-6 enable-default-log
+set firewall ipv6-name INTERNET-LOCAL-6 rule 1 action accept
+set firewall ipv6-name INTERNET-LOCAL-6 rule 1 description 'Allow established sessions'
+set firewall ipv6-name INTERNET-LOCAL-6 rule 1 log disable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 1 state established enable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 1 state related enable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 2 action drop
+set firewall ipv6-name INTERNET-LOCAL-6 rule 2 log disable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 2 state invalid enable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 5 action accept
+set firewall ipv6-name INTERNET-LOCAL-6 rule 5 description 'Allow ICMPv6'
+set firewall ipv6-name INTERNET-LOCAL-6 rule 5 log disable
+set firewall ipv6-name INTERNET-LOCAL-6 rule 5 protocol icmpv6
+set firewall ipv6-name INTERNET-LOCAL-6 rule 6 action accept
+set firewall ipv6-name INTERNET-LOCAL-6 rule 6 description 'Allow DHCPv6 packets'
+set firewall ipv6-name INTERNET-LOCAL-6 rule 6 destination port 546
+set firewall ipv6-name INTERNET-LOCAL-6 rule 6 protocol udp
+set firewall ipv6-name INTERNET-LOCAL-6 rule 6 source port 547
+set firewall ipv6-receive-redirects disable
+set firewall ipv6-src-route disable
+set firewall ip-src-route disable
+set firewall log-martians enable
+set firewall name DROP-ALL default-action drop
+set firewall name DROP-ALL description ''
+set firewall name INTERNET-IN default-action drop
+set firewall name INTERNET-IN description ''
+set firewall name INTERNET-IN rule 1 action accept
+set firewall name INTERNET-IN rule 1 log disable
+set firewall name INTERNET-IN rule 1 protocol all
+set firewall name INTERNET-IN rule 1 state established enable
+set firewall name INTERNET-IN rule 1 state invalid disable
+set firewall name INTERNET-IN rule 1 state new disable
+set firewall name INTERNET-IN rule 1 state related enable
+set firewall name INTERNET-IN rule 500 action accept
+set firewall name INTERNET-IN rule 500 destination port 500,4500,1194
+set firewall name INTERNET-IN rule 500 protocol udp
+set firewall name MGMT default-action reject
+set firewall name MGMT description ''
+set firewall name MGMT rule 1 action accept
+set firewall name MGMT rule 1 destination port 22,80,443
+set firewall name MGMT rule 1 log disable
+set firewall name MGMT rule 1 protocol tcp
+set firewall name MGMT rule 2 action accept
+set firewall name MGMT rule 2 description netdisco
+set firewall name MGMT rule 2 destination group
+set firewall name MGMT rule 2 destination port 161
+set firewall name MGMT rule 2 log disable
+set firewall name MGMT rule 2 protocol udp
+set firewall name MGMT rule 3 action accept
+set firewall name MGMT rule 3 description ping
+set firewall name MGMT rule 3 log disable
+set firewall name MGMT rule 3 protocol icmp
+set firewall receive-redirects disable
+set firewall send-redirects enable
+set firewall source-validation disable
+set firewall syn-cookies enable
+set interfaces ethernet eth0 address 10.5.1.5/24
+set interfaces ethernet eth0 description Management
+set interfaces ethernet eth0 duplex auto
+set interfaces ethernet eth0 firewall in name DROP-ALL
+set interfaces ethernet eth0 firewall local name MGMT
+set interfaces ethernet eth0 speed auto
+set interfaces ethernet eth1 description 'DTAG VDSL'
+set interfaces ethernet eth1 duplex auto
+set interfaces ethernet eth1 speed auto
+set interfaces ethernet eth1 vif 7 description 'Telekom Internet'
+set interfaces ethernet eth1 vif 7 mtu 1500
+set interfaces ethernet eth1 vif 7 pppoe 0 default-route auto
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd pd 0 interface switch0 host-address '::22b0:2206'
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd pd 0 interface switch0 no-dns
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd pd 0 interface switch0 prefix-id 42
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd pd 0 interface switch0 service slaac
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd pd 0 prefix-length 56
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd prefix-only
+set interfaces ethernet eth1 vif 7 pppoe 0 dhcpv6-pd rapid-commit enable
+set interfaces ethernet eth1 vif 7 pppoe 0 firewall in ipv6-name INTERNET-IN-6
+set interfaces ethernet eth1 vif 7 pppoe 0 firewall in name INTERNET-IN
+set interfaces ethernet eth1 vif 7 pppoe 0 firewall local ipv6-name INTERNET-LOCAL-6
+set interfaces ethernet eth1 vif 7 pppoe 0 firewall local name INTERNET-IN
+set interfaces ethernet eth1 vif 7 pppoe 0 ipv6 address autoconf
+set interfaces ethernet eth1 vif 7 pppoe 0 ipv6 dup-addr-detect-transmits 1
+set interfaces ethernet eth1 vif 7 pppoe 0 ipv6 enable
+set interfaces ethernet eth1 vif 7 pppoe 0 mtu 1492
+set interfaces ethernet eth1 vif 7 pppoe 0 name-server auto
+set interfaces ethernet eth1 vif 7 pppoe 0 password 12345678
+set interfaces ethernet eth1 vif 7 pppoe 0 user-id '001234567890123456789012#0001@t-online.de'
+set interfaces ethernet eth2 duplex auto
+set interfaces ethernet eth2 speed auto
+set interfaces ethernet eth3 duplex auto
+set interfaces ethernet eth3 speed auto
+set interfaces ethernet eth4 duplex auto
+set interfaces ethernet eth4 speed auto
+set interfaces loopback lo
+set interfaces switch switch0 address 10.3.1.5/24
+set interfaces switch switch0 description LAN
+set interfaces switch switch0 ipv6 dup-addr-detect-transmits 1
+set interfaces switch switch0 ipv6 router-advert cur-hop-limit 64
+set interfaces switch switch0 ipv6 router-advert link-mtu 0
+set interfaces switch switch0 ipv6 router-advert managed-flag false
+set interfaces switch switch0 ipv6 router-advert max-interval 600
+set interfaces switch switch0 ipv6 router-advert name-server '2001:4860:4860::8888'
+set interfaces switch switch0 ipv6 router-advert other-config-flag false
+set interfaces switch switch0 ipv6 router-advert prefix '2003:a:1111:1126::/64' autonomous-flag true
+set interfaces switch switch0 ipv6 router-advert prefix '2003:a:1111:1126::/64' on-link-flag true
+set interfaces switch switch0 ipv6 router-advert prefix '2003:a:1111:1126::/64' valid-lifetime 2592000
+set interfaces switch switch0 ipv6 router-advert reachable-time 0
+set interfaces switch switch0 ipv6 router-advert retrans-timer 0
+set interfaces switch switch0 ipv6 router-advert send-advert true
+set interfaces switch switch0 mtu 1500
+set interfaces switch switch0 switch-port interface eth2
+set interfaces switch switch0 switch-port interface eth3
+set interfaces switch switch0 switch-port interface eth4
+set interfaces switch switch0 switch-port vlan-aware disable
+set protocols static interface-route 0.0.0.0/0 next-hop-interface pppoe0
+set protocols static route 10.0.0.0/8 next-hop 10.0.0.250
+set protocols static route 172.16.0.0/12 next-hop 10.0.0.250
+set protocols static route 192.168.0.0/16 next-hop 10.0.0.250
+set service dhcp-server disabled false
+set service dhcp-server hostfile-update disable
+set service dhcp-server shared-network-name LAN authoritative disable
+set service dhcp-server shared-network-name LAN subnet 10.3.1.0/24 default-router 10.3.1.5
+set service dhcp-server shared-network-name LAN subnet 10.3.1.0/24 dns-server 10.3.1.5
+set service dhcp-server shared-network-name LAN subnet 10.3.1.0/24 dns-server 8.8.8.8
+set service dhcp-server shared-network-name LAN subnet 10.3.1.0/24 lease 28800
+set service dhcp-server shared-network-name LAN subnet 10.3.1.0/24 start 10.3.1.100 stop 10.3.1.199
+set service dhcp-server use-dnsmasq disable
+set service dns forwarding cache-size 5000
+set service dns forwarding listen-on switch0
+set service gui http-port 80
+set service gui https-port 443
+set service gui listen-address 10.5.1.5
+set service gui older-ciphers enable
+set service lldp interface eth0
+set service lldp interface switch0
+set service lldp legacy-protocols cdp
+set service lldp management-address 10.5.1.5
+set service nat rule 5000 description all-to-internet
+set service nat rule 5000 log disable
+set service nat rule 5000 outbound-interface pppoe0
+set service nat rule 5000 protocol all
+set service nat rule 5000 type masquerade
+set service snmp community public authorization ro
+set service snmp contact 'Der VyOS-Administrator'
+set service snmp listen-address 10.5.1.5 port 161
+set service snmp location 'Serverraum, Telco-Rack'
+set service ssh listen-address 10.5.1.5
+set service ssh port 22
+set service ssh protocol-version v2
+set service ubnt-discover disable
+set system domain-name vyos.local
+set system host-name RT-5
+set system login user ubnt authentication encrypted-password '$1$zKNoUbAo$gomzUbYvgyUMcD436Wo66.'
+set system login user ubnt level admin
+set system name-server 8.8.8.8
+set system ntp server 0.de.pool.ntp.org
+set system package repository wheezy components 'main contrib non-free'
+set system package repository wheezy distribution wheezy
+set system package repository wheezy password ''
+set system package repository wheezy url 'http://ftp.de.debian.org/debian'
+set system package repository wheezy username ''
+set system static-host-mapping
+set system syslog global facility all level notice
+set system syslog global facility protocols level debug
+set system time-zone Europe/Berlin
+set system traffic-analysis dpi disable
+set system traffic-analysis export disable
+set vpn ipsec auto-firewall-nat-exclude enable
+set vpn ipsec ipsec-interfaces interface pppoe0
+set vpn ipsec nat-networks allowed-network 192.168.0.0/16
+set vpn ipsec nat-traversal enable
+set vpn l2tp remote-access authentication local-users username ubnt password ubnt
+set vpn l2tp remote-access authentication mode local
+set vpn l2tp remote-access client-ip-pool start 10.3.1.224
+set vpn l2tp remote-access client-ip-pool stop 10.3.1.239
+set vpn l2tp remote-access dns-servers server-1 10.3.1.5
+set vpn l2tp remote-access ipsec-settings authentication mode pre-shared-secret
+set vpn l2tp remote-access ipsec-settings authentication pre-shared-secret UBNT1234
+set vpn l2tp remote-access ipsec-settings ike-lifetime 3600
+set vpn l2tp remote-access outside-address 203.0.113.241

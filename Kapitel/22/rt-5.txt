@@ -1,0 +1,98 @@
+set interfaces ethernet eth0 address 10.3.1.5/24
+set interfaces ethernet eth0 address 'fd00:3::5/64'
+set interfaces ethernet eth0 description Standort-3
+set interfaces ethernet eth0 duplex auto
+set interfaces ethernet eth0 speed auto
+set interfaces ethernet eth1 address 192.0.2.5/24
+set interfaces ethernet eth1 address '2001:db8:2::5/64'
+set interfaces ethernet eth1 description WAN-2
+set interfaces ethernet eth1 duplex auto
+set interfaces ethernet eth1 ip ospf authentication md5 key-id 1 md5-key SECRET
+set interfaces ethernet eth1 ip ospf dead-interval 40
+set interfaces ethernet eth1 ip ospf hello-interval 10
+set interfaces ethernet eth1 ip ospf priority 1
+set interfaces ethernet eth1 ip ospf retransmit-interval 5
+set interfaces ethernet eth1 ip ospf transmit-delay 1
+set interfaces ethernet eth1 mac '00:03:b2:2d:e1:c7'
+set interfaces ethernet eth1 speed auto
+set interfaces ethernet eth2 address 198.51.100.5/24
+set interfaces ethernet eth2 address '2001:db8:1::5/64'
+set interfaces ethernet eth2 description WAN-1
+set interfaces ethernet eth2 duplex auto
+set interfaces ethernet eth2 ip ospf authentication md5 key-id 1 md5-key SECRET
+set interfaces ethernet eth2 ip ospf dead-interval 40
+set interfaces ethernet eth2 ip ospf hello-interval 10
+set interfaces ethernet eth2 ip ospf priority 1
+set interfaces ethernet eth2 ip ospf retransmit-interval 5
+set interfaces ethernet eth2 ip ospf transmit-delay 1
+set interfaces ethernet eth2 ipv6 dup-addr-detect-transmits 1
+set interfaces ethernet eth2 ipv6 ospfv3 cost 1
+set interfaces ethernet eth2 ipv6 ospfv3 dead-interval 40
+set interfaces ethernet eth2 ipv6 ospfv3 hello-interval 10
+set interfaces ethernet eth2 ipv6 ospfv3 instance-id 0
+set interfaces ethernet eth2 ipv6 ospfv3 priority 1
+set interfaces ethernet eth2 ipv6 ospfv3 retransmit-interval 5
+set interfaces ethernet eth2 ipv6 ospfv3 transmit-delay 1
+set interfaces ethernet eth2 mac '00:03:b2:2d:e1:c8'
+set interfaces ethernet eth2 speed auto
+set interfaces ethernet eth3 address 10.5.1.5/24
+set interfaces ethernet eth3 description Management
+set interfaces ethernet eth3 duplex auto
+set interfaces ethernet eth3 mac '00:03:b2:2d:e1:c9'
+set interfaces ethernet eth3 speed auto
+set interfaces ethernet eth4 address 'fd00:1::55/64'
+set interfaces ethernet eth4 address 10.1.1.5/24
+set interfaces ethernet eth4 description Standort-1
+set interfaces ethernet eth4 duplex auto
+set interfaces ethernet eth4 mac '00:03:b2:2d:e1:ca'
+set interfaces ethernet eth4 speed auto
+set interfaces ethernet eth4 vrrp vrrp-group 1 advertise-interval 1
+set interfaces ethernet eth4 vrrp vrrp-group 1 preempt true
+set interfaces ethernet eth4 vrrp vrrp-group 1 virtual-address 10.1.1.250
+set interfaces ethernet eth4 vrrp vrrp-group 6 advertise-interval 1
+set interfaces ethernet eth4 vrrp vrrp-group 6 preempt true
+set interfaces ethernet eth4 vrrp vrrp-group 6 virtual-address 'fd00:1::250/64'
+set interfaces ethernet eth4 vrrp vrrp-group 6 virtual-address 'FE80:1::250'
+set interfaces loopback lo
+set interfaces switch switch0 mtu 1500
+set protocols ospf area 0 area-type normal
+set protocols ospf area 0 authentication md5
+set protocols ospf area 0 network 198.51.100.0/24
+set protocols ospf area 0 network 192.0.2.0/24
+set protocols ospf area 3 network 10.3.1.0/24
+set protocols ospf area 3 range 10.3.0.0/16
+set protocols ospf parameters abr-type cisco
+set protocols ospf parameters router-id 203.0.113.5
+set protocols ospf passive-interface eth3
+set protocols ospfv3 area 0.0.0.0 interface eth2
+set protocols ospfv3 area 0.0.0.3 interface eth0
+set protocols ospfv3 area 0.0.0.3 range 'fd00:3::/32'
+set protocols ospfv3 parameters router-id 203.0.113.5
+set protocols static route 10.0.0.0/8 next-hop 10.5.1.250
+set service gui http-port 80
+set service gui https-port 443
+set service gui older-ciphers enable
+set service lldp interface all
+set service lldp legacy-protocols
+set service lldp management-address 10.5.1.5
+set service ssh port 22
+set service ssh protocol-version v2
+set service telnet port 23
+set service ubnt-discover disable
+set system domain-name lab
+set system host-name RT-5
+set system login user ubnt authentication encrypted-password '$1$zKNoUbAo$gomzUbYvgyUMcD436Wo66.'
+set system login user ubnt authentication public-keys rsa-key-20150323 key AAAAB3NzaC1yc2EAAAABJQAAAIB3HolfapB1/6YHGb/4PELzhUsECZptJcF3MDDI7wAVQyX6O07Yt+eT3qcJPD3qrJ0tOW2uEmx62ow8FKsAzymr7NQv6sM7NyXaAM/u+Y4arknzE2K5fcT/ZUJg8hfD+6bJWbCmqcU2o33OhI8O1hVPl8MR8U9WlCV2F4Oeui8qZw==
+set system login user ubnt authentication public-keys rsa-key-20150323 type ssh-rsa
+set system login user ubnt level admin
+set system name-server 10.5.1.253
+set system ntp server 10.5.1.253
+set system ntp server 0.de.pool.ntp.org
+set system package repository wheezy components 'main contrib non-free'
+set system package repository wheezy distribution wheezy
+set system package repository wheezy password ''
+set system package repository wheezy url 'http://ftp.de.debian.org/debian'
+set system package repository wheezy username ''
+set system syslog global facility all level notice
+set system syslog global facility protocols level debug
+set system time-zone Europe/Berlin
