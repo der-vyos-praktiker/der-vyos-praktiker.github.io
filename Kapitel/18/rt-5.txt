@@ -1,0 +1,63 @@
+set interfaces bridge br0 address 10.5.1.5/24
+set interfaces bridge br0 aging 300
+set interfaces bridge br0 bridged-conntrack disable
+set interfaces bridge br0 description LAN
+set interfaces bridge br0 hello-time 2
+set interfaces bridge br0 max-age 20
+set interfaces bridge br0 priority 32768
+set interfaces bridge br0 promiscuous disable
+set interfaces bridge br0 stp false
+set interfaces ethernet eth0 address 10.3.1.5/24
+set interfaces ethernet eth0 description VMnet3
+set interfaces ethernet eth0 duplex auto
+set interfaces ethernet eth0 speed auto
+set interfaces ethernet eth1 address 192.0.2.5/24
+set interfaces ethernet eth1 description VMnet6
+set interfaces ethernet eth1 duplex auto
+set interfaces ethernet eth1 speed auto
+set interfaces ethernet eth2 address 198.51.100.5/24
+set interfaces ethernet eth2 address '2001:db8:1::5/64'
+set interfaces ethernet eth2 description VMnet7
+set interfaces ethernet eth2 duplex auto
+set interfaces ethernet eth2 speed auto
+set interfaces ethernet eth3 bridge-group bridge br0
+set interfaces ethernet eth3 description LAN1
+set interfaces ethernet eth3 duplex auto
+set interfaces ethernet eth3 speed auto
+set interfaces ethernet eth4 bridge-group bridge br0
+set interfaces ethernet eth4 description LAN2
+set interfaces ethernet eth4 duplex auto
+set interfaces ethernet eth4 poe output off
+set interfaces ethernet eth4 speed auto
+set interfaces loopback lo
+set interfaces openvpn vtun0 mode client
+set interfaces openvpn vtun0 remote-host 198.51.100.2
+set interfaces openvpn vtun0 tls ca-cert-file /config/auth/ca.crt
+set interfaces openvpn vtun0 tls cert-file /config/auth/RT-5.crt
+set interfaces openvpn vtun0 tls key-file /config/auth/RT-5.key
+set protocols static route 0.0.0.0/0 next-hop 10.5.1.250
+set protocols static route 10.2.1.0/24 next-hop 198.51.100.4
+set protocols static route6 'fd00:2::/64' next-hop '2001:db8:1::4'
+set service gui http-port 80
+set service gui https-port 443
+set service gui older-ciphers enable
+set service ssh port 22
+set service ssh protocol-version v2
+set service ubnt-discover disable
+set system config-management commit-revisions 20
+set system host-name RT-5
+set system login user ubnt authentication encrypted-password '$1$zKNoUbAo$gomzUbYvgyUMcD436Wo66.'
+set system login user ubnt level admin
+set system login user vyos authentication encrypted-password '$1$5HsQse2v$VQLh5eeEp4ZzGmCG/PRBA1'
+set system login user vyos authentication plaintext-password ''
+set system login user vyos authentication public-keys root@labsrv key AAAAB3NzaC1yc2EAAAADAQABAAABAQChfqyhoQHWpIH4i96/ZdjqXx9N1E6g08wJv/7Lh/vU/ievTHsLUIMRTuDp578Z7f2tBlZzCDM9g06XYnZmWuXFoRVvq0g2TBtBnBaVqfyZaHikZaGzg6s0I+lNQXnYe4rAanV444m6UG1Ragw5m8XtAkQo6rZ+fFOrQM/cdbB2XOhlMShfP3j+d7yLOb/2l6FzN7x9JZYs0BBq5C3ZXEjsG5UGOWYE8Ak6BIPyGCUM04oyXIHx4JzzRSV9NxvojfrXM2VCkJw2oqX+IWTSTQLianzsoCDzg/7BFgP1LItsK7J5BGD407GZqemiYUYANJEvYBWTWvdnvw+DbPu0Enmr
+set system login user vyos authentication public-keys root@labsrv type ssh-rsa
+set system login user vyos authentication public-keys rsa-key-20150323 key AAAAB3NzaC1yc2EAAAABJQAAAIB3HolfapB1/6YHGb/4PELzhUsECZptJcF3MDDI7wAVQyX6O07Yt+eT3qcJPD3qrJ0tOW2uEmx62ow8FKsAzymr7NQv6sM7NyXaAM/u+Y4arknzE2K5fcT/ZUJg8hfD+6bJWbCmqcU2o33OhI8O1hVPl8MR8U9WlCV2F4Oeui8qZw==
+set system login user vyos authentication public-keys rsa-key-20150323 type ssh-rsa
+set system login user vyos level admin
+set system name-server 10.5.1.253
+set system ntp server 10.5.1.253
+set system package
+set system syslog global facility all level notice
+set system syslog global facility protocols level debug
+set system time-zone Europe/Berlin
