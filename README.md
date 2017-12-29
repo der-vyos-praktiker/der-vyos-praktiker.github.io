@@ -2,7 +2,7 @@
 
 Enterprise-Routing f&uuml;r Consumer-Preise? Damit lockt [VyOS](https://vyos.io) seine Anwender und der Marktanteil steigt. Aber wie gut funktionionieren diese Versprechen in der Praxis?
 
-__Das Buch ist erh&auml;ltlich ab Oktober 2017 als E-Book oder gedrucktes Buch.__
+__Das Buch ist erh&auml;ltlich seit Oktober 2017 als E-Book oder gedrucktes Buch.__
 
 Ein Blick ins [Inhaltsverzeichnis](Inhaltsverzeichnis.md).
 
@@ -39,9 +39,9 @@ Fast alle Kapitel benutzen denselben Netzaufbau und diegleichen IPv4/IPv6-Adress
 
 * Buch kaufen bei [Amazon](https://www.amazon.de/VyOS-Praktiker-Enterprise-Routing-mit-Open-Source/dp/3744896412/) oder [BoD](https://www.bod.de/buchshop/der-vyos-praktiker-markus-stubbig-9783744896412)
 
-* Kontakt zum Autor per [Email](mailto:der.vyos.praktiker@gmail.com)
+* Kontakt zum Autor per [E-Mail](mailto:der.vyos.praktiker@gmail.com)
 
-* Fehler melden. [Email](mailto:der.vyos.praktiker@gmail.com?subject=Fehler)
+* Fehler melden. [E-Mail](mailto:der.vyos.praktiker@gmail.com?subject=Fehler)
 
 * [Benchmarks](Kapitel/30)
 
