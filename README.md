@@ -48,5 +48,3 @@ Fast alle Kapitel benutzen denselben Netzaufbau und diegleichen IPv4/IPv6-Adress
 * [Stichwortverzeichnis](Stichwortverzeichnis.pdf)
 
 * [Impressum](Impressum.md)
-
-![GA](https://www.google-analytics.com/collect?v=1&tid=UA-108770011-2&aip=1&t=pageview&cid=555&dh=github.com&dp=%2FREADME.md&dt=README)

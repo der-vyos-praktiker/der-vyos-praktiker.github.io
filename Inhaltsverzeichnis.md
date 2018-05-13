@@ -275,5 +275,3 @@
 #### A. Editor unter Linux
 
 #### B. Zusatzmaterial
-
-![GA](https://www.google-analytics.com/collect?v=1&tid=UA-108770011-2&aip=1&t=pageview&cid=555&dh=github.com&dp=%2FInhaltsverzeichnis.md&dt=Inhaltsverzeichnis)
