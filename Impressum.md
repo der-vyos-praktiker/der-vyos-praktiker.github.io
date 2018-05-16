@@ -1,16 +1,16 @@
 # Impressum
 
-Markus Stubbig
-K&ouml;lner Str 278
-51702 Bergneustadt
-E-Mail ![email](images/email.png)
+Markus Stubbig  
+K&ouml;lner Str 278  
+51702 Bergneustadt  
+E-Mail ![email](images/email.png)  
 Tel ![tel](images/phone.png)
 
 ## Inhaltlich Verantwortlicher gem. &sect; 55 II RStV
-Markus Stubbig
-K&ouml;lner Str 278
-51702 Bergneustadt
-E-Mail ![email](images/email.png)
+Markus Stubbig  
+K&ouml;lner Str 278  
+51702 Bergneustadt  
+E-Mail ![email](images/email.png)  
 Tel ![tel](images/phone.png)
 
 ## Datenschutzerkl&auml;rung
