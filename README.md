@@ -29,7 +29,7 @@ Kapitel 19 _Virtual Router Redundancy Protocol_ gibt es als kostenlose [Leseprob
 Fast alle Kapitel benutzen denselben Netzaufbau und diegleichen IPv4/IPv6-Adressen. Das Netzdiagramm gibts als Download im Format [PDF](Netzdiagramm.pdf) oder [PNG](Netzdiagramm.png).
 
 
-## Resourcen
+## Ressourcen
 
 * Was ist drin im Buch? Ein Blick ins [Inhaltsverzeichnis](Inhaltsverzeichnis.md) zeigt die behandelten Themen.
 
